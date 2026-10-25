@@ -3,20 +3,20 @@
 
 namespace ModSettings {
 
+// ScriptBundle, 2.5 layout (a pointer was added at the start)
 struct ScriptData {
-  RED4ext::HashMap<uint64_t, uint64_t> unk00;
-  RED4ext::HashMap<uint64_t, uint64_t> unk30;
-  RED4ext::HashMap<uint64_t, uint64_t> unk60;
-  RED4ext::DynArray<void *> files;
-  RED4ext::DynArray<void *> functions;
-  RED4ext::DynArray<void *> enums;
-  RED4ext::DynArray<void *> unkC0;
-  RED4ext::DynArray<ScriptClass *> classes;
-  RED4ext::DynArray<void *> types;
-  RED4ext::DynArray<RED4ext::CString> strings;
-  RED4ext::HashMap<uint64_t, uint64_t> unk100;
-  uint8_t unk60MUTX;
-  void *unk138;
+  void *unk00; // 00 - added in 2.5
+  RED4ext::HashMap<uint64_t, uint64_t> unk08; // 08 - definitions by name
+  RED4ext::HashMap<uint64_t, uint64_t> unk38; // 38 - functions by name
+  RED4ext::HashMap<uint64_t, uint64_t> unk68; // 68 - types by name
+  RED4ext::DynArray<void *> files; // 98
+  RED4ext::DynArray<void *> functions; // A8
+  RED4ext::DynArray<void *> enums; // B8
+  RED4ext::DynArray<void *> unkC8; // C8 - bitfields
+  RED4ext::DynArray<ScriptClass *> classes; // D8
+  RED4ext::DynArray<void *> types; // E8
+  RED4ext::DynArray<RED4ext::CString> strings; // F8
 };
+RED4EXT_ASSERT_OFFSET(ScriptData, classes, 0xD8);
 
 }

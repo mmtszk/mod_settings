@@ -5,6 +5,7 @@ private func PopulateMenuItemList() -> Void {
     if this.m_savesCount > 0 {
         this.AddMenuItem(GetLocalizedText("UI-ScriptExports-LoadGame0"), n"OnSwitchToLoadGame");
     };
+    this.AddMenuItem(GetLocalizedTextByKey(n"UI-Modio-MenuContent-Mods"), n"OnSwitchToModioMenu");
     this.AddMenuItem(GetLocalizedText("UI-Labels-Settings"), n"OnSwitchToSettings");
     this.AddMenuItem(GetLocalizedText("UI-Labels-ModSettings"), n"OnSwitchToModSettings");
     this.AddMenuItem(GetLocalizedText("UI-Labels-Credits"), n"OnCreditsPicker");

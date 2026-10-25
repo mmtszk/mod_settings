@@ -229,19 +229,20 @@ struct ScriptProperty : ScriptDefinition {
     }
   }
 
-  RED4ext::CProperty *rttiProperty;
-  ScriptDefinition *parent;
-  ScriptPropertyFlags flags;
-  uint16_t unk2A[3];
-  RED4ext::DynArray<RED4ext::CString> defaultClasss;
-  RED4ext::DynArray<RED4ext::CString> defaultValues;
-  uint64_t unk50;
-  EVisibility unk58;
-  uint8_t unk59[7];
-  RED4ext::HashMap<RED4ext::CName, RED4ext::CString> runtimeProperties;
-  ScriptType *type;
+  RED4ext::CProperty *rttiProperty; // 40
+  ScriptDefinition *parent; // 48
+  ScriptPropertyFlags flags; // 50
+  uint16_t unk52[3]; // 52
+  RED4ext::DynArray<RED4ext::CString> defaultClasss; // 58
+  RED4ext::DynArray<RED4ext::CString> defaultValues; // 68
+  uint64_t unk78; // 78
+  EVisibility unk80; // 80
+  uint8_t unk81[7]; // 81
+  RED4ext::HashMap<RED4ext::CName, RED4ext::CString> runtimeProperties; // 88
+  ScriptType *type; // B8
 };
-RED4EXT_ASSERT_SIZE(ScriptProperty, 0x98);
-RED4EXT_ASSERT_OFFSET(ScriptProperty, runtimeProperties, 0x60);
+RED4EXT_ASSERT_SIZE(ScriptProperty, 0xC0);
+RED4EXT_ASSERT_OFFSET(ScriptProperty, runtimeProperties, 0x88);
+RED4EXT_ASSERT_OFFSET(ScriptProperty, type, 0xB8);
 
 }

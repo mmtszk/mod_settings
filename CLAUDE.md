@@ -33,6 +33,13 @@ Game version for the release name comes from the installed `Cyberpunk2077.exe`, 
 
 State on 2026-09-13: v0.2.21 (built for 2.30) loads and works on game 2.31 unchanged; pins bumped to the 2.31 SDK so the next tag reads "for 2.31".
 
+State on 2026-10-25 (patch 2.5, file version 3.0.88.46235): not yet run in game.
+- SDK fork: upstream WopsS/RED4ext.SDK 0f5eba4 ported onto `new-types` (CBaseFunction +0x40, CStackFrame 0xA8 with ctor/dtor, IRTTISystem and CBaseEngine vtables, 2.5 hashes, `RED4EXT_V0_RUNTIME_2_50`, `"2.5"` in GameVersions.json), plus the 2.5 input/config enums from 5246e65. The rest of that type regen (vehicles, world, ink) is not ported.
+- red_lib fork: class/function registration from psiberx/cp2077-red-lib 398a710 (re-describing replaces same-named functions).
+- `ScriptData`/`ScriptClass`/`ScriptProperty`/`ScriptType`: 2.5 layouts from Codeware b054150 `src/Red/ScriptBundle.hpp` (every definition grew 0x28, ScriptClass +0x20 before functions, ScriptBundle gained a leading pointer). `ReleaseScriptData` hash 3993832650 is still `ScriptBundle_dtor` in Codeware 2.5.
+- Main/pause menu `PopulateMenuItemList` replacements now include 2.5's `OnSwitchToModioMenu` ("Mods") entry; checked against the CDPR-Modding-Documentation/Cyberpunk-Scripts v2.5 dump (no other symbol the redscript uses was removed or changed).
+- Unverified: the 5 other hashes (run `tools/check_hashes.py`) and the input structs in `Hooks/ApplyOverrides.hpp` (2.5 added gyro/touch/pattern input; Codeware's RawInputData grew 8 bytes). Test key binding overrides first.
+
 ## Releases
 
 Push a `vX.Y.Z` tag. `.github/workflows/release.yaml` builds, runs git-cliff over conventional commits (`feat:`/`fix:` show up; `chore:`/`ci:` are skipped), publishes the GitHub release, then uploads the zip to Nexus mod 4885 (file id 2608471) with the changelog through `Nexus-Mods/upload-action`. The Nexus step needs the repo secret `NEXUSMODS_API_KEY` and resolves the v3 mod id from the site id first. Checkout is full-depth on purpose; a shallow clone gives git-cliff no history and an empty changelog.

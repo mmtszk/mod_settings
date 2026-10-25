@@ -46,16 +46,19 @@ struct ScriptDefinition {
   virtual void sub_28() = 0;
   virtual bool IsNative() = 0;
 
-  RED4ext::CName name;
-  uint64_t unk10;
+  RED4ext::CName name; // 08
+  uint64_t unk10; // 10
+  uint8_t unk18[0x28]; // 18 - added in 2.5
 };
+RED4EXT_ASSERT_SIZE(ScriptDefinition, 0x40);
 
 struct ScriptType : ScriptDefinition {
-  RED4ext::CBaseRTTIType *rttiType;
-  ScriptClass *innerType;
-  uint32_t unk28;
-  EScriptType type;
+  RED4ext::CBaseRTTIType *rttiType; // 40
+  ScriptClass *innerType; // 48
+  uint32_t unk50; // 50 - array size
+  EScriptType type; // 54
 };
+RED4EXT_ASSERT_OFFSET(ScriptType, innerType, 0x48);
 
 struct ScriptClassFlags {
   uint32_t isNative : 1;
@@ -71,20 +74,22 @@ struct ScriptClassFlags {
   uint32_t unk400 : 1;
 };
 
+// 2.5 layout, matches psiberx/cp2077-codeware src/Red/ScriptBundle.hpp
 struct ScriptClass : ScriptDefinition {
-  RED4ext::CClass *rttiType;
-  ScriptClass *parent;
-  RED4ext::DynArray<ScriptProperty *> properties;
-  RED4ext::DynArray<void *> overrides;
-  RED4ext::DynArray<void *> functions;
-  __unaligned __declspec(align(1)) RED4ext::HashMap<RED4ext::CName, RED4ext::CString> unk58;
-  uint8_t visibility;
-  uint8_t unk89;
-  uint8_t unk8A;
-  uint8_t unk8B;
-  ScriptClassFlags flags;
+  RED4ext::CClass *rttiType; // 40
+  ScriptClass *parent; // 48
+  RED4ext::DynArray<ScriptProperty *> properties; // 50
+  RED4ext::DynArray<void *> overrides; // 60
+  uint8_t unk70[0x20]; // 70 - added in 2.5
+  RED4ext::DynArray<void *> functions; // 90
+  RED4ext::HashMap<RED4ext::CName, RED4ext::CString> unkA0; // A0 - attributes
+  uint8_t visibility; // D0
+  uint8_t flags; // D1
 };
-RED4EXT_ASSERT_SIZE(ScriptClass, 0x90);
+RED4EXT_ASSERT_OFFSET(ScriptClass, parent, 0x48);
+RED4EXT_ASSERT_OFFSET(ScriptClass, properties, 0x50);
+RED4EXT_ASSERT_OFFSET(ScriptClass, functions, 0x90);
+RED4EXT_ASSERT_OFFSET(ScriptClass, flags, 0xD1);
 // char (*__kaboom)[offsetof(ScriptClass, rttiType)] = 1;
 
 }
