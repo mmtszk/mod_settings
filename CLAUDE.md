@@ -9,7 +9,7 @@ Sibling repos with the same build/release shape: `../flight_control` (Let There 
 - `src/red4ext/` - plugin. `Main.cpp` = entry. `Hooks/` = 2 hooked game functions plus 1 direct call, all by RED4ext address hash (`REGISTER_HOOK_HASH` / `UniversalRelocFunc`). `Scripting/`, `ScriptDefinitions/` = the script-facing API.
 - `src/redscript/mod_settings/` - the UI and API redscript; packed into `packed.reds` + `module.reds`. Other mods compile against this folder (LTBF and In-World Navigation vendor this repo as a submodule for that).
 - `src/wolvenkit/` - Wolvenkit project; the built `ModSettings.archive` under `packed/` is committed and only copied by CMake.
-- `deps/` - submodules: `red4ext.sdk` (jackhumbert fork, branch `new-types`), `cpcmake` (jackhumbert/cyberpunk_cmake, the CMake framework), `red_lib` (fork, branch `jack`), `archive_xl` (headers only), `spdlog`, `detours`.
+- `deps/` - submodules: `red4ext.sdk` (mmtszk/RED4ext.SDK, a fork of jackhumbert's fork, branch `new-types`), `cpcmake` (mmtszk/cyberpunk_cmake, the CMake framework), `red_lib` (mmtszk/cp2077-red-lib, branch `jack`), `archive_xl` (headers only), `spdlog`, `detours`.
 - `game_dir/` build output in game-folder layout, `game_dir_debug/` PDBs; both zipped for release. `requirements.md` is regenerated at configure time from the Find modules in cpcmake.
 
 ## Build
